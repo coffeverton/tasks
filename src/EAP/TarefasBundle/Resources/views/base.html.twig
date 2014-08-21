@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>{% block title %}Not Welcome!{% endblock %}</title>
+        {% block stylesheets %}{% endblock %}
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    </head>
+    <body>
+        <ul>
+            <li>
+                <a href="{{ path('ativas') }}">
+                    Tarefas Ativas
+                </a>
+            </li>
+            <li>
+                <a href="{{ path('tarefas') }}">
+                    Todas Tarefas
+                </a>
+            </li>
+            <li>
+                <a href="{{ path('passos_agora') }}">
+                    Agora
+                </a>
+            </li>
+        </ul>
+        {% block body %}{% endblock %}
+        {% block javascripts %}{% endblock %}
+    </body>
+</html>

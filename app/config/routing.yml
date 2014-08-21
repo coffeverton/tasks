@@ -1,0 +1,5 @@
+tarefas:
+    resource: "@TarefasBundle/Controller/"
+    type:     annotation
+    prefix:   /
+

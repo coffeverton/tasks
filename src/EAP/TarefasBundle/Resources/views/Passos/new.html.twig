@@ -1,0 +1,20 @@
+{% extends 'TarefasBundle::base.html.twig' %}
+
+{% block body -%}
+    <h1>Passos creation</h1>
+
+    {{ form(form) }}
+
+<ul class="record_actions">
+    <li>
+        <a href="{{ path('tarefas_new') }}">
+            Nova Tarefa
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('tarefas') }}">
+            Back to the list
+        </a>
+    </li>
+</ul>
+{% endblock %}

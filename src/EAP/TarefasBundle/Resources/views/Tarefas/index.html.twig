@@ -1,0 +1,81 @@
+{% extends 'TarefasBundle::base.html.twig' %}
+
+{% block body -%}
+    <h1>Tarefas</h1>
+    <table class="records_list">
+        <thead>
+            <tr>
+                <th>Data</th>
+                <th>Nome</th>
+                <th>Descricao</th>
+                <th>Status</th>
+                <th>Concluida em</th>
+                <th>Pai</th>
+                <th>Passos</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}
+            <tr>
+                <td><a href="{{ path('tarefas_show', { 'id': entity.id }) }}">{{ entity.data|date('d/m/y H:i') }}</a></td>
+                <td>{{ entity.nome }}</td>
+                <td>{{ entity.descricao }}</td>
+                <td>{{ entity.getStatusLabel }}</td>
+                <td>
+                    {% if entity.concluido is not null %}
+                    {{ entity.concluido|date('d/m/y H:i') }}
+                    {% endif %}
+                </td>
+                <td>
+                    {% if entity.idPai is not null %}
+                        <a href="{{ path('tarefas_edit', { 'id': entity.getIdPaiAsInt }) }}">{{ entity.idPai }}</a>
+                    {% endif %}
+                </td>
+                <td>
+                    <ul>
+                    {% for passo in entity.getAllPassos %}
+                    <li>
+                        <a href="{{ path('passos_show', { 'id': passo.id }) }}">{{ passo.data|date('d/m/y H:i') }} {{ passo.obs }}</a>
+                    </li>
+                    {% endfor %}
+                    </ul>
+                </td>
+                <td>
+                <ul>
+                    <li>
+                        <a href="{{ path('tarefas_show', { 'id': entity.id }) }}">show</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('tarefas_edit', { 'id': entity.id }) }}">edit</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('change_status', { 'id': entity.id,'status':'0' }) }}">aguardar</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('change_status', { 'id': entity.id,'status':'1' }) }}">executar</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('change_status', { 'id': entity.id,'status':'2' }) }}">finalizar</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('change_status', { 'id': entity.id,'status':'3' }) }}">cancelar</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('passos_new', { 'id_tarefa': entity.id }) }}">novo passo</a>
+                    </li>
+                </ul>
+                </td>
+            </tr>
+
+        {% endfor %}
+        </tbody>
+    </table>
+    <ul>
+        <li>
+            <a href="{{ path('tarefas_new') }}">
+                Create a new entry
+            </a>
+        </li>
+    </ul>
+    {% endblock %}
